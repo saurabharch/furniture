@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  # web-api:
+  #   container_name: ${PROJECT_ID}
+  #   build:
+  #     dockerfile: Dockerfile.dev
+  #     context: ./
+  #   ports:
+  #     - 127.0.0.1:${API_PORT}:${API_PORT}
+  #     - 127.0.0.1:${WEB_PORT}:${WEB_PORT}
+  #     - 127.0.0.1:${SOCKET_PORT}:${SOCKET_PORT}
+  #   networks:
+  #     - webnet
+  #   volumes:
+  #     - ./:/home/node/app
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "8m"
+  #       max-file: "10"
+  #   restart: always
+  redis:
+    image: "redis:alpine"
+    networks:
+      - webnet
+    volumes:
+      - /path/to/redis-persistence:/bitnami/redis/data
+    ports:
+      - "6379"
+  postgresql:
+    container_name: postgresql
+    image: postgres:11.2
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data
+      - ./data/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+    networks:
+      - webnet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "8m"
+        max-file: "10"
+networks:
+  webnet:
+    name: webnet
+    driver: bridge
