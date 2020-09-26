@@ -1,0 +1,3 @@
+CREATE DATABASE node_core;
+CREATE USER postgres WITH PASSWORD '123456';
+GRANT ALL PRIVILEGES ON DATABASE "node_core" to postgres;
