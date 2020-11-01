@@ -23,7 +23,7 @@
             ".scss"
         ]
     },
-    "eslint.format.enable": true,
+    "eslint.format.enable": false,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
